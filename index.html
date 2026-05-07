@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wayne Shop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══ NAVIGATION ═══ -->
+  <nav id="mainNav">
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <span class="brand-icon">👟</span>
+        <div>
+          <span class="brand-name">Wayne Shop</span>
+          <span class="brand-tag">Vêtements · Chaussures · Montres</span>
+        </div>
+      </div>
+      <button class="cart-btn" id="cartToggleBtn">
+        🛒 Panier <span class="cart-badge" id="cartBadge">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-tag">🔥 Nouveautés disponibles</p>
+      <h1 class="hero-title">Bienvenue chez<br/><span>Wayne Shop</span> 🛍️</h1>
+      <p class="hero-sub">Parcourez nos articles et commandez directement via WhatsApp — rapide et simple !</p>
+      <a href="#produits" class="hero-btn">Voir les articles ↓</a>
+    </div>
+    <div class="hero-slides" id="heroSlideshow">
+      <div class="hero-slide active"><img data-hero="rhude"         alt="Ensemble RHUDE" /></div>
+      <div class="hero-slide">      <img data-hero="adventure"      alt="Ensemble Adventure" /></div>
+      <div class="hero-slide">      <img data-hero="sandales_beige" alt="Sandales" /></div>
+      <div class="hero-slide">      <img data-hero="montre_noire"   alt="Montre" /></div>
+      <div class="hero-slide">      <img data-hero="b069"           alt="Ensemble B069" /></div>
+    </div>
+  </section>
+
+  <!-- ═══ CATÉGORIES ═══ -->
+  <div class="cat-bar">
+    <button class="cat-btn active" data-filter="all">🏠 Tout</button>
+    <button class="cat-btn" data-filter="complets">👕 Complets</button>
+    <button class="cat-btn" data-filter="chaussures-femme">👠 Femme</button>
+    <button class="cat-btn" data-filter="chaussures-homme">👟 Homme</button>
+    <button class="cat-btn" data-filter="montres">⌚ Montres</button>
+  </div>
+
+  <!-- ═══ PRODUITS ═══ -->
+  <section id="produits" class="products-section">
+    <div class="products-grid" id="productsGrid"></div>
+  </section>
+
+  <!-- ═══ PANIER ═══ -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3>🛒 Mon Panier</h3>
+      <button class="cart-close" id="cartClose">✕</button>
+    </div>
+    <div class="cart-body">
+      <div class="cart-items" id="cartItems">
+        <div class="cart-empty"><span>🛒</span><p>Votre panier est vide</p></div>
+      </div>
+      <div class="cart-footer" id="cartFooter">
+        <div class="cart-total-row">
+          <span>Total</span>
+          <strong id="cartTotal">0 FCFA</strong>
+        </div>
+        <div class="order-form">
+          <p class="order-form-title">📋 Infos de livraison</p>
+          <input type="text" id="buyerName"    class="order-input" placeholder="Nom complet *" />
+          <input type="tel"  id="buyerPhone"   class="order-input" placeholder="Téléphone *" />
+          <input type="text" id="buyerCity"    class="order-input" placeholder="Quartier / Ville *" />
+          <textarea          id="buyerAddress" class="order-input order-textarea" placeholder="Adresse précise (optionnel)"></textarea>
+          <button class="order-btn" id="confirmOrderBtn">📲 Commander via WhatsApp</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══ MODAL ═══ -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-emoji">🎉</div>
+      <h3>Commande envoyée !</h3>
+      <p id="modalText"></p>
+      <p class="modal-sub">WhatsApp va s'ouvrir pour finaliser avec le vendeur.</p>
+      <button class="order-btn" id="modalCloseBtn">Fermer</button>
+    </div>
+  </div>
+
+  <!-- ═══ TOAST ═══ -->
+  <div class="toast" id="toast"><p id="toastText"></p></div>
+
+  <script src="images.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
