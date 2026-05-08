@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wayne Shop — Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="admin.css"/>
+</head>
+<body class="admin-body">
+
+  <!-- ÉCRAN DE CONNEXION -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-box">
+      <div class="login-logo">
+        <span>👟</span>
+        <h1>Wayne Shop</h1>
+        <p>Panneau Administrateur</p>
+      </div>
+      <div class="login-form">
+        <input type="password" id="passwordInput" class="order-input" placeholder="🔐 Mot de passe admin" />
+        <p class="login-error" id="loginError"></p>
+        <button class="order-btn" id="loginBtn">Se connecter</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLEAU DE BORD ADMIN -->
+  <div class="admin-panel" id="adminPanel" style="display:none">
+
+    <!-- HEADER ADMIN -->
+    <div class="admin-nav">
+      <div class="nav-brand">
+        <span class="brand-icon">👟</span>
+        <div>
+          <span class="brand-name">Wayne Shop</span>
+          <span class="brand-tag">Panneau Admin</span>
+        </div>
+      </div>
+      <div class="admin-nav-right">
+        <a href="index.html" class="admin-view-site">🌐 Voir le site</a>
+        <button class="admin-logout" id="logoutBtn">🚪 Déconnexion</button>
+      </div>
+    </div>
+
+    <div class="admin-content">
+
+      <!-- STATS -->
+      <div class="admin-stats">
+        <div class="stat-card">
+          <span class="stat-icon">📦</span>
+          <div>
+            <p class="stat-num" id="statTotal">—</p>
+            <p class="stat-label">Articles total</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">🔥</span>
+          <div>
+            <p class="stat-num" id="statPromo">—</p>
+            <p class="stat-label">En promo</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">✨</span>
+          <div>
+            <p class="stat-num" id="statNew">—</p>
+            <p class="stat-label">Nouveaux</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">💰</span>
+          <div>
+            <p class="stat-num" id="statMinPrice">—</p>
+            <p class="stat-label">Prix minimum</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOUTON AJOUTER -->
+      <div class="admin-toolbar">
+        <h2 class="admin-section-title">📋 Mes Articles</h2>
+        <button class="add-article-btn" id="openAddModal">➕ Ajouter un article</button>
+      </div>
+
+      <!-- LISTE ARTICLES -->
+      <div class="admin-loading" id="adminLoading">
+        <div class="spinner"></div>
+        <p>Chargement...</p>
+      </div>
+      <div class="admin-articles" id="adminArticles"></div>
+
+    </div>
+  </div>
+
+  <!-- MODAL AJOUTER / MODIFIER -->
+  <div class="modal-overlay" id="articleModal">
+    <div class="modal article-modal">
+      <h3 id="modalFormTitle">➕ Ajouter un article</h3>
+
+      <div class="form-group">
+        <label>Nom de l'article *</label>
+        <input type="text" id="formNom" class="order-input" placeholder="Ex: Ensemble RHUDE Los Angeles"/>
+      </div>
+
+      <div class="form-group">
+        <label>Catégorie *</label>
+        <select id="formCategorie" class="order-input">
+          <option value="">-- Choisir --</option>
+          <option value="complets">👕 Complets</option>
+          <option value="chaussures-femme">👠 Chaussures Femme</option>
+          <option value="chaussures-homme">👟 Chaussures Homme</option>
+          <option value="montres">⌚ Montres</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Prix actuel (FCFA) *</label>
+          <input type="number" id="formPrix" class="order-input" placeholder="Ex: 7500"/>
+        </div>
+        <div class="form-group">
+          <label>Ancien prix (optionnel)</label>
+          <input type="number" id="formAncienPrix" class="order-input" placeholder="Ex: 9000"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Badge</label>
+        <select id="formBadge" class="order-input">
+          <option value="">Aucun badge</option>
+          <option value="new">✨ Nouveau</option>
+          <option value="promo">🔥 Promo</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Photo de l'article *</label>
+        <div class="photo-upload-area" id="photoUploadArea">
+          <input type="file" id="formPhoto" accept="image/*" style="display:none"/>
+          <div class="photo-preview" id="photoPreview">
+            <span>📷</span>
+            <p>Clique pour choisir une photo</p>
+            <small>JPG, PNG, WEBP — max 5MB</small>
+          </div>
+        </div>
+        <!-- Pour modification: garder l'ancienne image si pas de nouvelle -->
+        <input type="hidden" id="formImageUrl"/>
+      </div>
+
+      <div class="modal-actions">
+        <button class="cancel-btn" id="cancelArticleModal">Annuler</button>
+        <button class="order-btn save-btn" id="saveArticleBtn">💾 Enregistrer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL CONFIRMATION SUPPRESSION -->
+  <div class="modal-overlay" id="deleteModal">
+    <div class="modal delete-modal">
+      <div class="modal-emoji">🗑️</div>
+      <h3>Supprimer cet article ?</h3>
+      <p id="deleteArticleName"></p>
+      <p class="modal-sub">Cette action est irréversible !</p>
+      <div class="modal-actions">
+        <button class="cancel-btn" id="cancelDelete">Annuler</button>
+        <button class="delete-confirm-btn" id="confirmDelete">Oui, supprimer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"><p id="toastText"></p></div>
+
+  <script src="images.js"></script>
+  <script src="config.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
